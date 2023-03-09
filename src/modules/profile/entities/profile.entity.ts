@@ -6,22 +6,19 @@ import {
   Column,
 } from 'typeorm';
 
-@Entity({ name: 'users' })
-export class User {
+@Entity({ name: 'profiles' })
+export class Profile {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 100 })
-  first_name: string;
+  @Column({ type: 'text' })
+  profile_picture: string;
 
-  @Column({ type: 'varchar', length: 100 })
-  last_name: string;
+  @Column({ type: 'text' })
+  cover: string;
 
-  @Column({ type: 'varchar', length: 120, unique: true })
-  email: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  password: string;
+  @Column({ type: 'varchar' })
+  country: string;
 
   @CreateDateColumn({
     type: 'datetime',

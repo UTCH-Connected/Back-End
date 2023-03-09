@@ -1,35 +1,27 @@
-import { DataSource, DataSourceOptions } from 'typeorm';
-// import { ConfigService } from '@nestjs/config';
-// import { SqlServerConnectionOptions } from 'typeorm/driver/sqlserver/SqlServerConnectionOptions';
+import { ConfigService } from '@nestjs/config';
+import { DataSource } from 'typeorm';
 
-// const configService = new ConfigService();
+import { config } from 'dotenv';
+import { SqlServerConnectionOptions } from 'typeorm/driver/sqlserver/SqlServerConnectionOptions';
+import { join } from 'path';
 
-// export const config: SqlServerConnectionOptions = {
-//   type: 'mssql',
-//   port: 1433,
-//   host: 'localhost',
-//   database: configService.get('MSSQL_DB'),
-//   username: configService.get('MSSQL_USER'),
-//   password: configService.get('MSSQL_PASSWORD'),
-//   synchronize: false,
-//   options: { encrypt: false },
+config();
 
-//   entities: ['src/**/*.entity.{ts,js}'],
-//   migrations: ['dist/migrations/*.{ts,js}'],
-// };
+const configService = new ConfigService();
 
-export const dataSourceOptions: DataSourceOptions = {
+export const dataSourceOptions: SqlServerConnectionOptions = {
   type: 'mssql',
-  port: 1433,
-  host: 'localhost',
-  database: 'my_db',
-  username: 'Kroak',
-  password: '791305',
-  synchronize: false,
-  options: { encrypt: false },
+  port: parseInt(configService.get('MSSQL_PORT')),
+  host: configService.get('MSSQL_HOST'),
+  database: configService.get('MSSQL_DB'),
+  username: configService.get('MSSQL_USER'),
+  password: configService.get('MSSQL_PASSWORD'),
+  entities: [join('dist', '**', '*.entity.{ts,js}')],
+  migrations: [join('dist', 'migrations', '*.{ts,js}')],
+  extra: {
+    trustServerCertificate: true,
+  },
 
-  entities: ['dist/**/*.entity.{ts,js}'],
-  migrations: ['dist/migrations/*.{ts,js}'],
   // migrationsRun: true,
 };
 
