@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/modules/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateProfileDTO, UpdateProfileDTO } from '../dtos/profile.dto';
 import { Profile } from '../entities/profile.entity';
@@ -7,6 +8,7 @@ import { Profile } from '../entities/profile.entity';
 @Injectable()
 export class ProfileService {
   constructor(
+    @InjectRepository(User) private userRepo: Repository<User>,
     @InjectRepository(Profile) private profileRepo: Repository<Profile>,
   ) {}
 
@@ -19,8 +21,12 @@ export class ProfileService {
     return profile;
   }
 
-  create(payload: CreateProfileDTO) {
+  async create(payload: CreateProfileDTO) {
     const newProfile = this.profileRepo.create(payload);
+    if (payload.userId) {
+      const user = await this.userRepo.findOneBy({ id: payload.userId });
+      newProfile.user = user;
+    }
 
     return this.profileRepo.save(newProfile);
   }

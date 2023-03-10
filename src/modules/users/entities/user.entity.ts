@@ -1,9 +1,12 @@
+import { Profile } from 'src/modules/profile/entities/profile.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
   Column,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -22,6 +25,10 @@ export class User {
 
   @Column({ type: 'varchar', length: 255 })
   password: string;
+
+  @OneToOne(() => Profile, { nullable: true })
+  @JoinColumn()
+  profile: Profile;
 
   @CreateDateColumn({
     type: 'datetime',
