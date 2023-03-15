@@ -12,6 +12,7 @@ export class CreateProfileDTO {
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
+  @IsNotEmpty()
   userId: number;
 
   @IsString()
@@ -27,7 +28,6 @@ export class CreateProfileDTO {
   readonly country: string;
 
   @IsBoolean()
-  @IsNotEmpty()
   readonly gender: boolean;
 }
 

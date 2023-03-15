@@ -1,3 +1,4 @@
+import { Posts } from 'src/modules/post/entities/post.entity';
 import { User } from 'src/modules/users/entities/user.entity';
 import {
   Entity,
@@ -6,6 +7,7 @@ import {
   UpdateDateColumn,
   Column,
   OneToOne,
+  OneToMany,
 } from 'typeorm';
 
 @Entity({ name: 'profiles' })
@@ -22,8 +24,14 @@ export class Profile {
   @Column({ type: 'varchar' })
   country: string;
 
+  @Column({ type: 'bit', nullable: true })
+  gender: boolean;
+
   @OneToOne(() => User, (user) => user.profile, { nullable: true })
   user: User;
+
+  @OneToMany(() => Posts, (post) => post.profile, { nullable: true })
+  posts: Posts[];
 
   @CreateDateColumn({
     type: 'datetime',

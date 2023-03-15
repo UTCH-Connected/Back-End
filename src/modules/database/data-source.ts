@@ -4,6 +4,9 @@ import { DataSource } from 'typeorm';
 import { config } from 'dotenv';
 import { SqlServerConnectionOptions } from 'typeorm/driver/sqlserver/SqlServerConnectionOptions';
 import { join } from 'path';
+import { User } from '../users/entities/user.entity';
+import { Profile } from '../profile/entities/profile.entity';
+import { Post } from '@nestjs/common';
 
 config();
 
@@ -16,7 +19,7 @@ export const dataSourceOptions: SqlServerConnectionOptions = {
   database: configService.get('MSSQL_DB'),
   username: configService.get('MSSQL_USER'),
   password: configService.get('MSSQL_PASSWORD'),
-  entities: [join('dist', '**', '*.entity.{ts,js}')],
+  entities: [User, Profile, Post],
   migrations: [join('dist', 'migrations', '*.{ts,js}')],
   extra: {
     trustServerCertificate: true,

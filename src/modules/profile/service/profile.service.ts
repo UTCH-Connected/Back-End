@@ -12,8 +12,18 @@ export class ProfileService {
     @InjectRepository(Profile) private profileRepo: Repository<Profile>,
   ) {}
 
-  async get(id: number) {
-    const profile = await this.profileRepo.findOneBy({ id });
+  async getAll() {
+    const profiles = await this.profileRepo.find();
+    if (!profiles) throw new NotFoundException('No se encontraron perfiles');
+
+    return profiles;
+  }
+
+  async getOne(id: number) {
+    const profile = await this.profileRepo.findOne({
+      where: { id },
+      relations: ['user'],
+    });
     if (!profile) {
       throw new NotFoundException('No se encontraron datos del perfil');
     }
