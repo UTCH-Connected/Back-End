@@ -78,3 +78,6 @@ Nest is [MIT licensed](LICENSE).
 - Archaon - Chaos_Undivided
 - Miguel - password
 - Karl - wahama
+- Tar-Aldarion - Númenor
+- Tar-Minastir - Golden_Númenor
+- Tar-Palantir - Last_Númenor

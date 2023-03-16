@@ -8,6 +8,7 @@ import {
   Column,
   OneToOne,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity({ name: 'profiles' })
@@ -31,6 +32,7 @@ export class Profile {
   user: User;
 
   @OneToMany(() => Posts, (post) => post.profile, { nullable: true })
+  @JoinColumn()
   posts: Posts[];
 
   @CreateDateColumn({

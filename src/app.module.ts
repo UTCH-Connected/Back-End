@@ -13,7 +13,6 @@ import config from './config/config';
 import { JwtModule } from '@nestjs/jwt';
 
 import { ConfigService } from '@nestjs/config';
-import { PostModule } from './modules/post.module';
 import { PostModule } from './modules/post/post.module';
 
 const configService = new ConfigService();
@@ -39,6 +38,6 @@ export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
     PostModule,
   ],
   controllers: [AppController],
-  providers: [AppService, { provide: 'JWT_GUARD', useClass: JwtAuthGuard }],
+  providers: [AppService],
 })
 export class AppModule {}

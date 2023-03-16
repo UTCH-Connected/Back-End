@@ -5,8 +5,13 @@ import { dataSourceOptions } from './data-source';
 
 @Global()
 @Module({
-  imports: [TypeOrmModule.forRoot(dataSourceOptions)],
+  imports: [
+    TypeOrmModule.forRoot({
+      autoLoadEntities: true,
+      ...dataSourceOptions,
+    }),
+  ],
   providers: [],
-  exports: [TypeOrmModule.forRoot(dataSourceOptions)],
+  exports: [TypeOrmModule],
 })
 export class DatabaseModule {}

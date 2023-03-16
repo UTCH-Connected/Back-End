@@ -22,7 +22,7 @@ export class ProfileService {
   async getOne(id: number) {
     const profile = await this.profileRepo.findOne({
       where: { id },
-      relations: ['user'],
+      relations: ['user', 'posts'],
     });
     if (!profile) {
       throw new NotFoundException('No se encontraron datos del perfil');

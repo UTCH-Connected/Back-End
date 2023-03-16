@@ -13,6 +13,6 @@ const configService = new ConfigService();
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController],
   providers: [UserService],
-  exports: [UserService, TypeOrmModule.forFeature([User])],
+  exports: [UserService, TypeOrmModule],
 })
 export class UsersModule {}

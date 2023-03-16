@@ -6,7 +6,7 @@ import { SqlServerConnectionOptions } from 'typeorm/driver/sqlserver/SqlServerCo
 import { join } from 'path';
 import { User } from '../users/entities/user.entity';
 import { Profile } from '../profile/entities/profile.entity';
-import { Post } from '@nestjs/common';
+import { Posts } from '../post/entities/post.entity';
 
 config();
 
@@ -19,8 +19,9 @@ export const dataSourceOptions: SqlServerConnectionOptions = {
   database: configService.get('MSSQL_DB'),
   username: configService.get('MSSQL_USER'),
   password: configService.get('MSSQL_PASSWORD'),
-  entities: [User, Profile, Post],
-  migrations: [join('dist', 'migrations', '*.{ts,js}')],
+  synchronize: false,
+  entities: ['dist/**/*.entity.{ts,js}'],
+  migrations: ['dist/migrations/*.{ts,js}'],
   extra: {
     trustServerCertificate: true,
   },
@@ -29,5 +30,7 @@ export const dataSourceOptions: SqlServerConnectionOptions = {
 };
 
 const dataSource = new DataSource(dataSourceOptions);
+
+dataSource.initialize();
 
 export default dataSource;
