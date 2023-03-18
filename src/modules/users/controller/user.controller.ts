@@ -35,7 +35,7 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get('login')
+  @Post('login')
   async login(
     @Body() payload: UpdateUserDTO,
     @Res({ passthrough: true }) res: Response,

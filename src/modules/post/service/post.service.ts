@@ -13,7 +13,7 @@ export class PostService {
   ) {}
 
   async getAll() {
-    const posts = await this.postRepo.find();
+    const posts = await this.postRepo.find({ relations: ['profile'] });
     if (!posts) throw new NotFoundException('No se encontraron posts');
 
     return posts;
