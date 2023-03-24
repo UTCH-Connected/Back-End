@@ -3,10 +3,6 @@ import { DataSource } from 'typeorm';
 
 import { config } from 'dotenv';
 import { SqlServerConnectionOptions } from 'typeorm/driver/sqlserver/SqlServerConnectionOptions';
-import { join } from 'path';
-import { User } from '../users/entities/user.entity';
-import { Profile } from '../profile/entities/profile.entity';
-import { Posts } from '../post/entities/post.entity';
 
 config();
 
@@ -25,7 +21,9 @@ export const dataSourceOptions: SqlServerConnectionOptions = {
   extra: {
     trustServerCertificate: true,
   },
-
+  options: {
+    encrypt: true,
+  },
   // migrationsRun: true,
 };
 
